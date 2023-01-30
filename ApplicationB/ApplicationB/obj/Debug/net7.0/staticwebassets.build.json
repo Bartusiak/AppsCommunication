@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "0+egtr3sURbqtv+8qwNxl4lKwysAS6C0vDZIQfZlPrY=",
+  "Source": "ApplicationB",
+  "BasePath": "_content/ApplicationB",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

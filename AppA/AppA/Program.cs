@@ -8,7 +8,7 @@ namespace AppA
 {
     class Program
     {
-        public static void Main()
+        public static async Task Main()
         {
             while (true)
             {
@@ -18,10 +18,10 @@ namespace AppA
                 Console.WriteLine($"Message to send: {msg}");
 
                 using var aes = Aes.Create();
-                var encryptedMsg = EncryptHelper.EncryptStringToBytes_Aes(msg, aes.Key, aes.IV);
+                var encryptedMsg = await EncryptHelper.EncryptStringToBytes_Aes(msg, aes.Key, aes.IV);
             
-                SendDataHelper.SendEncryptedMessageToDb(encryptedMsg);
-                SendDataHelper.SendKeyAndIVToAppB(aes.Key, aes.IV);
+                await SendDataHelper.SendEncryptedMessageToDb(encryptedMsg);
+                await SendDataHelper.SendKeyAndIVToAppB(aes.Key, aes.IV);
                 
                 Thread.Sleep(15000);
                 Console.Clear();

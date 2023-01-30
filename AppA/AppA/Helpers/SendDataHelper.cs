@@ -11,7 +11,7 @@ namespace AppA.Helpers;
 
 public class SendDataHelper
 {
-    public static async void SendKeyAndIVToAppB(byte[] key, byte[] IV)
+    public static async Task SendKeyAndIVToAppB(byte[] key, byte[] IV)
     {
         try
         {
@@ -19,7 +19,7 @@ public class SendDataHelper
             var data = new {Key = key, SymmetricAlgorithm = IV};
             var response = client.PostAsJsonAsync(HTTP_ENDPOINT, data).Result;
             var responseContent = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<Callback>(responseContent);
+            var result = await DeserializeJsonAsync(responseContent);
 
             Console.WriteLine(response.IsSuccessStatusCode
                 ? result?.Value
@@ -31,25 +31,27 @@ public class SendDataHelper
         }
     }
 
-    public static void SendEncryptedMessageToDb(IEnumerable message)
+    public static async Task SendEncryptedMessageToDb(IEnumerable message)
     {
         try
         {
             var connectionString = ConfigurationManager.ConnectionStrings["MessagesDb"].ConnectionString;
             var con = new SqlConnection(connectionString);
-            con.Open();
+            await con.OpenAsync();
 
-            using (var cmd = new SqlCommand($"INSERT INTO Messages (EncodedMsg) VALUES (@EncodedMsg)", con))
+            await using (var cmd = new SqlCommand($"INSERT INTO Messages (EncodedMsg) VALUES (@EncodedMsg)", con))
             {
                 cmd.Parameters.AddWithValue("@EncodedMsg", message);
-                cmd.ExecuteNonQuery();
+                await cmd.ExecuteNonQueryAsync();
             }
 
-            con.Close();
+            await con.CloseAsync();
         }
         catch (SqlException ex)
         {
             Console.WriteLine($"Received error while sending message to the database: {ex.Message}");
         }
     }
+    
+    private static async Task<Callback?> DeserializeJsonAsync(string json) => await Task.Run(() => JsonConvert.DeserializeObject<Callback>(json));
 }

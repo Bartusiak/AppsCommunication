@@ -4,38 +4,41 @@ namespace AppA.Helpers;
 
 public class EncryptHelper
 {
-    public static byte[] EncryptStringToBytes_Aes(string text, byte[] key, byte[] IV)
+    public static async Task<byte[]> EncryptStringToBytes_Aes(string text, byte[] key, byte[] IV)
     {
-        if (string.IsNullOrEmpty(text))
-            throw new ArgumentNullException(nameof(text));
-        if (key is not {Length: > 0})
-            throw new ArgumentNullException(nameof(key));
-        if (IV is not {Length: > 0})
-            throw new ArgumentNullException(nameof(IV));
-
-        byte[] encrypted;
-
-        using (var aes = Aes.Create())
+        return await Task.Run(() =>
         {
-            aes.Key = key;
-            aes.IV = IV;
+            if (string.IsNullOrEmpty(text))
+                throw new ArgumentNullException(nameof(text));
+            if (key is not {Length: > 0})
+                throw new ArgumentNullException(nameof(key));
+            if (IV is not {Length: > 0})
+                throw new ArgumentNullException(nameof(IV));
 
-            var encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
+            byte[] encrypted;
 
-            using (var msEncrypt = new MemoryStream())
+            using (var aes = Aes.Create())
             {
-                using (var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
-                {
-                    using (var swEncrypt = new StreamWriter(csEncrypt))
-                    {
-                        swEncrypt.Write(text);
-                    }
+                aes.Key = key;
+                aes.IV = IV;
 
-                    encrypted = msEncrypt.ToArray();
+                var encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
+
+                using (var msEncrypt = new MemoryStream())
+                {
+                    using (var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
+                    {
+                        using (var swEncrypt = new StreamWriter(csEncrypt))
+                        {
+                            swEncrypt.Write(text);
+                        }
+
+                        encrypted = msEncrypt.ToArray();
+                    }
                 }
             }
-        }
 
-        return encrypted;
+            return encrypted;
+        });
     }
 }

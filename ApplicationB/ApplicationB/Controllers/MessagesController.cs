@@ -1,4 +1,5 @@
 ﻿using ApplicationB.Db.Models;
+using ApplicationB.Db.Repository;
 using ApplicationB.Db.Services;
 using ApplicationB.Helpers;
 using Microsoft.AspNetCore.Mvc;
@@ -10,9 +11,9 @@ namespace ApplicationB.Controllers;
 [ApiController]
 public class MessagesController : ControllerBase
 {
-    private readonly MessageService _messageService;
+    private readonly IMessagesRepository _messageService;
 
-    public MessagesController(MessageService msgService)
+    public MessagesController(IMessagesRepository msgService)
     {
         _messageService = msgService;
     }

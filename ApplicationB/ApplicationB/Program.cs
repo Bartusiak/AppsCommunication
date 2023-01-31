@@ -1,4 +1,5 @@
 using AppB.Db.Data;
+using ApplicationB.Db.Repository;
 using ApplicationB.Db.Services;
 
 namespace ApplicationB;
@@ -12,7 +13,7 @@ public static class Program
         builder.Services.AddControllers();
         builder.Services.AddDbContext<MessagesDbContext>();
         builder.Services.AddHealthChecks();
-        builder.Services.AddScoped<MessageService>();
+        builder.Services.AddScoped<IMessagesRepository ,MessageService>();
         var app = builder.Build();
         
         app.UseHttpsRedirection();

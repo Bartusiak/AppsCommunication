@@ -1,4 +1,5 @@
 # AppsCommunication
+Note before merge: If you check project before finish, please switch to branch solutionB.
 
 In the project, we have 2 applications:
 

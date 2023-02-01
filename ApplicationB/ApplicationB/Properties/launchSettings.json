@@ -13,7 +13,7 @@
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "applicationUrl": "http://localhost:5266",
-      "launchUrl": "http://localhost:5266/api/Messages/healthz",
+      "launchUrl": "http://localhost:5266/swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -23,7 +23,7 @@
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "applicationUrl": "https://localhost:7266;http://localhost:5266",
-      "launchUrl": "https://localhost:7266/api/Messages/healthz",
+      "launchUrl": "https://localhost:7266/swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

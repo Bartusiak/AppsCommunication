@@ -10,7 +10,7 @@ namespace ApplicationBTests;
 
 public class Tests
 {
-    private IMessagesRepository? _msgRepository;
+    private IMessagesRepository _msgRepository;
     private Messages _messages;
     private MessageToDecrypt _messageToDecrypt;
     private DataToDecrypt _dataToDecrypt;

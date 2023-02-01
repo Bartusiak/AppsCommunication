@@ -1,0 +1,38 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=03c88c51_002D2cc6_002D46ca_002D85c6_002Dfe6ff310f009/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetMessageById_IdTwo_ReturnNull" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::AFF4774C-B9FC-4AF5-AC33-B6311313B1ED::net7.0::ApplicationBTests.Tests.GetMessageById_IdTwo_ReturnNull&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::AFF4774C-B9FC-4AF5-AC33-B6311313B1ED::net7.0::ApplicationBTests.Tests.Decrypt_TextToDecrypt_ReturnExpectedText&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::AFF4774C-B9FC-4AF5-AC33-B6311313B1ED::net7.0::ApplicationBTests.Tests.RemoveMessages_ReturnExpectedMessage&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::AFF4774C-B9FC-4AF5-AC33-B6311313B1ED::net7.0::ApplicationBTests.Tests.GetMessages_ReturnMessages&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1a09f020_002D2438_002D4568_002Db4f9_002D4e502942edeb/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetMessages_ReturnMessages" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::AFF4774C-B9FC-4AF5-AC33-B6311313B1ED::net7.0::ApplicationBTests.Tests.GetMessages_ReturnMessages&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=2e7c5afb_002Df514_002D48aa_002Dbb90_002D061afa002272/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetMessageById_IdOne_ReturnExpectedEncodedMsg" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::AFF4774C-B9FC-4AF5-AC33-B6311313B1ED::net7.0::ApplicationBTests.Tests.GetMessageById_IdOne_ReturnExpectedEncodedMsg&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::AFF4774C-B9FC-4AF5-AC33-B6311313B1ED::net7.0::ApplicationBTests.Tests.GetMessageById_IdTwo_ReturnError&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=6ab596a2_002Dca2d_002D42be_002Da893_002D4379053cfb65/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="EncryptMethodTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::1864D732-C745-481E-A379-2A694812C1A0::net7.0::AppATests.Tests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::AFF4774C-B9FC-4AF5-AC33-B6311313B1ED::net7.0::ApplicationBTests.Tests.DataToDecrypt_ExpectedSuccess&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::AFF4774C-B9FC-4AF5-AC33-B6311313B1ED::net7.0::ApplicationBTests.Tests.DataToDecrypt_ReturnExpectedText&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::AFF4774C-B9FC-4AF5-AC33-B6311313B1ED::net7.0::ApplicationBTests.Tests.Decrypt_WrongKey_ExpectedError&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::AFF4774C-B9FC-4AF5-AC33-B6311313B1ED::net7.0::ApplicationBTests.Tests.Decrypt_WrongSymetricAlgorithm_ExpectedError&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::AFF4774C-B9FC-4AF5-AC33-B6311313B1ED::net7.0::ApplicationBTests.Tests.GetMessageById_IdOne_ReturnExpectedMessage&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::AFF4774C-B9FC-4AF5-AC33-B6311313B1ED::net7.0::ApplicationBTests.Tests.GetMessageById_IdOne_ReturnStatusCode&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::AFF4774C-B9FC-4AF5-AC33-B6311313B1ED::net7.0::ApplicationBTests.Tests.GetMessageById_IdTwo_ReturnErrorStatusCode&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::AFF4774C-B9FC-4AF5-AC33-B6311313B1ED::net7.0::ApplicationBTests.Tests.GetMessageById_IdOne_ReturnSuccessStatusCode&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d6f133b8_002Dafd7_002D49ab_002Da688_002D42fc303a0577/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="DataToDecrypt_ExpectedSuccess" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::AFF4774C-B9FC-4AF5-AC33-B6311313B1ED::net7.0::ApplicationBTests.Tests.DataToDecrypt_ExpectedSuccess&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

@@ -1,7 +1,8 @@
 ﻿using ApplicationB.Db.Models;
-using ApplicationB.Db.Services;
+using ApplicationB.Db.Repository;
 using ApplicationB.Helpers;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace ApplicationB.Controllers;
 
@@ -10,13 +11,15 @@ namespace ApplicationB.Controllers;
 [ApiController]
 public class MessagesController : ControllerBase
 {
-    private readonly MessageService _messageService;
+    private readonly IMessagesRepository _messageService;
 
-    public MessagesController(MessageService msgService)
+    public MessagesController(IMessagesRepository msgService)
     {
         _messageService = msgService;
     }
-
+    
+    [SwaggerOperation(Summary = "Decrypt specified message, received from Application A.", 
+                      Description = "That endpoint returns callback to Application A with custom status and decrypted message from Application B.")]
     [HttpPost("decrypt-message")]
     public async Task<IActionResult> DataToDecryptMsg([FromBody] DataToDecrypt data)
     {
@@ -26,6 +29,7 @@ public class MessagesController : ControllerBase
         return Ok(await Decrypt(msgToDecrypt));
     }
 
+    [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<IActionResult> Decrypt(MessageToDecrypt msgToDecrypt)
     {
         var decryptedMsg = await DecryptHelper.DecryptStringFromBytes_Aes(msgToDecrypt.Message, msgToDecrypt.KeyToDecrypt.Key, msgToDecrypt.KeyToDecrypt.SymmetricAlgorithm);
@@ -34,9 +38,11 @@ public class MessagesController : ControllerBase
         //TODO Should be removed last message despite the thrown error?
         _messageService.RemoveLastMessage();
         
-        return Ok($"I'm a teapot \n{decryptedMsg}");
+        return await Task.FromResult(Ok($"I'm a teapot \n{decryptedMsg}"));
     }
-
+    
+    [SwaggerOperation(Summary = "Get a specified message by Id.", 
+                      Description = "That endpoint returns a specified message via Id from Application B.")]
     [HttpGet("get-msg/{id}")]
     public IActionResult GetMessageById(int id)
     {
@@ -44,6 +50,8 @@ public class MessagesController : ControllerBase
         return Ok(msg);
     }
 
+    [SwaggerOperation(Summary = "Clear data from Messages table.", 
+                      Description = "That endpoint clear all stored messages from a table.")]
     [HttpGet("rm-msg")]
     public IActionResult RemoveMessages()
     {
@@ -58,6 +66,8 @@ public class MessagesController : ControllerBase
         }
     }
 
+    [SwaggerOperation(Summary = "Display Application B status.", 
+                      Description = "That endpoint return Application B status and a short description how to use it.")]
     [HttpGet("healthz")]
     public IActionResult HealthResponse()
     {
@@ -67,6 +77,8 @@ public class MessagesController : ControllerBase
                   "\n\n - You can check existing messages using endpoint: /api/Messages");
     }
 
+    [SwaggerOperation(Summary = "Get all messages.", 
+                      Description = "That endpoint returns all stored messages in the database table.")]
     [HttpGet]
     public IActionResult GetMessages() => Ok(_messageService.GetMessages());
 }

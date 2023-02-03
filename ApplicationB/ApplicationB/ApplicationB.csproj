@@ -37,4 +37,8 @@
       <ProjectReference Include="..\..\AppA\AppA\AppA.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove=".gitignore.bak" />
+    </ItemGroup>
+
 </Project>

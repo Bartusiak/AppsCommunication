@@ -1,6 +1,8 @@
-﻿namespace ApplicationB.Db.Models;
+﻿using ApplicationB.Db.Models.Interfaces;
 
-public class MessageToDecrypt
+namespace ApplicationB.Db.Models;
+
+public class MessageToDecrypt : IMessageToDecrypt
 {
     public MessageToDecrypt(byte[] messages, DataToDecrypt keyToDecrypt)
     {
@@ -8,6 +10,6 @@ public class MessageToDecrypt
         KeyToDecrypt = keyToDecrypt;
     }
     
-    public byte[] Message;
-    public DataToDecrypt KeyToDecrypt;
+    public byte[] Message { get; }
+    public DataToDecrypt KeyToDecrypt { get; }
 }

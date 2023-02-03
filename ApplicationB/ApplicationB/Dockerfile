@@ -9,6 +9,11 @@ COPY ["ApplicationB/ApplicationB.csproj", "ApplicationB/"]
 RUN dotnet restore "ApplicationB/ApplicationB.csproj"
 COPY . .
 WORKDIR "/src/ApplicationB"
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1
+RUN dotnet tool install -g dotnet-ef
+ENTRYPOINT ["dotnet-ef"]
+RUN dotnet ef migrations InitialCreate
+RUN dotnet ef database update
 RUN dotnet build "ApplicationB.csproj" -c Release -o /app/build
 
 FROM build AS publish

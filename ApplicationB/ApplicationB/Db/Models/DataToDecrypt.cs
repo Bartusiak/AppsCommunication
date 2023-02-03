@@ -1,7 +1,17 @@
-﻿namespace ApplicationB.Db.Models;
+﻿using ApplicationB.Db.Models.Interfaces;
 
-public class DataToDecrypt
+namespace ApplicationB.Db.Models;
+
+public class DataToDecrypt : IDataToDecrypt
 {
-    public byte[] Key { get; set; }
-    public byte[] SymmetricAlgorithm { get; set; }
+    public DataToDecrypt(byte[] key, byte[] symmetricAlgorithm)
+    {
+        Key = key;
+        SymmetricAlgorithm = symmetricAlgorithm;
+    }
+
+    public DataToDecrypt() { }
+
+    public byte[] Key { get; set; } = null!;
+    public byte[] SymmetricAlgorithm { get; set; } = null!;
 }

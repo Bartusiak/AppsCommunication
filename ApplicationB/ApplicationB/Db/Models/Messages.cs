@@ -15,5 +15,5 @@ public class Messages : IMessages
 
     [Key]
     public int MsgId { get; set; }
-    public byte[] EncodedMsg { get; set; }
+    public byte[] EncodedMsg { get; set; } = null!;
 }

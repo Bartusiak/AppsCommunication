@@ -21,7 +21,7 @@ public class MessagesController : ControllerBase
     [SwaggerOperation(Summary = "Decrypt specified message, received from Application A.", 
                       Description = "That endpoint returns callback to Application A with custom status and decrypted message from Application B.")]
     [HttpPost("decrypt-message")]
-    public async Task<IActionResult> DataToDecryptMsg([FromBody] DataToDecrypt? data)
+    public async Task<IActionResult> DataToDecryptMsg([FromBody] DataToDecrypt data)
     {
         var message = _messageService.GetLastMessage();
         var msgToDecrypt = new MessageToDecrypt(message.EncodedMsg, data);
@@ -30,7 +30,7 @@ public class MessagesController : ControllerBase
     }
 
     [ApiExplorerSettings(IgnoreApi = true)]
-    public async Task<IActionResult> Decrypt(MessageToDecrypt? msgToDecrypt)
+    public async Task<IActionResult> Decrypt(MessageToDecrypt msgToDecrypt)
     {
         var decryptedMsg = await DecryptHelper.DecryptStringFromBytes_Aes(msgToDecrypt.Message, msgToDecrypt.KeyToDecrypt.Key, msgToDecrypt.KeyToDecrypt.SymmetricAlgorithm);
 
@@ -38,7 +38,7 @@ public class MessagesController : ControllerBase
         //TODO Should be removed last message despite the thrown error?
         _messageService.RemoveLastMessage();
         
-        return Ok($"I'm a teapot \n{decryptedMsg}");
+        return await Task.FromResult(Ok($"I'm a teapot \n{decryptedMsg}"));
     }
     
     [SwaggerOperation(Summary = "Get a specified message by Id.", 

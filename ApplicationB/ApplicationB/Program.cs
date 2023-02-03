@@ -1,6 +1,9 @@
 using AppB.Db.Data;
+using ApplicationB.Db.Models;
 using ApplicationB.Db.Repository;
 using ApplicationB.Db.Services;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.OpenApi.Models;
 
 namespace ApplicationB;
@@ -26,6 +29,15 @@ public static class Program
         });
         builder.Services.AddScoped<IMessagesRepository ,MessageService>();
         var app = builder.Build();
+        
+        using (var scope = app.Services.CreateScope())
+        {
+            var services = scope.ServiceProvider;
+            var context = services.GetRequiredService<MessagesDbContext>();
+
+            context.Database.EnsureCreated();
+
+        }
 
         if (app.Environment.IsDevelopment())
         {

@@ -24,7 +24,7 @@ Instruction how to run applications.
 
 1. First of all you need to create Microsoft SQL Server LocalDb
 2. Run application B (App should create new database and Messages table).
-3. If you have problem to create databas, open command-prompt and enter:
+3. If you have problem to create database, open command-prompt and enter:
       - dotnet ef migrations InitialCreate
-      - dotnet ef database upadte
+      - dotnet ef database update
 4. Run application A.

@@ -1,5 +1,6 @@
 using System.Text;
 using AppA.Helpers;
+using System.Linq;
 
 namespace AppATests;
 
@@ -44,7 +45,7 @@ public class Tests
     }
     
     [Test]
-    public void EncryptMessage_ExpectedSuccess()
+    public async Task EncryptMessage_ExpectedSuccess()
     {
         //Arrange
         var msgToEncrypt = "Life is a life";
@@ -52,12 +53,10 @@ public class Tests
         var IV = Encoding.UTF8.GetBytes("PonmlkjihgfedcbA");
         
         //Act
-        var result = EncryptHelper.EncryptStringToBytes_Aes(msgToEncrypt, key, IV);
+        var result = await EncryptHelper.EncryptStringToBytes_Aes(msgToEncrypt, key, IV);
         var expectedResult = new List<byte>() {178, 22, 244, 156, 139, 136, 174, 124, 162, 245, 105, 12, 201, 198, 244, 149};
 
         //Assert
-        Assert.AreEqual(expectedResult.ToArray(), result);
+        Assert.IsTrue(expectedResult.SequenceEqual(result));
     }
-    
-    
 }

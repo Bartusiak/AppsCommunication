@@ -21,24 +21,32 @@ public class MessagesController : ControllerBase
     [SwaggerOperation(Summary = "Decrypt specified message, received from Application A.", 
                       Description = "That endpoint returns callback to Application A with custom status and decrypted message from Application B.")]
     [HttpPost("decrypt-message")]
-    public async Task<IActionResult> DataToDecryptMsg([FromBody] DataToDecrypt data)
+    public Task<IActionResult> DataToDecryptMsg([FromBody] DataToDecrypt data)
     {
-        var message = _messageService.GetLastMessage();
-        var msgToDecrypt = new MessageToDecrypt(message.EncodedMsg, data);
+        var message = _messageService.GetLastMessageAsync();
+        var msgToDecrypt = new MessageToDecrypt(message.Result.EncodedMsg, data);
         
-        return Ok(await Decrypt(msgToDecrypt));
+        return Task.FromResult<IActionResult>(Ok(Decrypt(msgToDecrypt)));
     }
 
     [ApiExplorerSettings(IgnoreApi = true)]
-    public async Task<IActionResult> Decrypt(MessageToDecrypt msgToDecrypt)
+    public string Decrypt(MessageToDecrypt msgToDecrypt)
     {
-        var decryptedMsg = await DecryptHelper.DecryptStringFromBytes_Aes(msgToDecrypt.Message, msgToDecrypt.KeyToDecrypt.Key, msgToDecrypt.KeyToDecrypt.SymmetricAlgorithm);
+        try
+        {
+            var decryptedMsg = DecryptHelper.DecryptStringFromBytes_Aes(msgToDecrypt.Message,
+                msgToDecrypt.KeyToDecrypt.Key, msgToDecrypt.KeyToDecrypt.SymmetricAlgorithm);
 
-        //TODO Need to check it - situation when decryptedMsg not successfully finished - beloved method will be executed??
-        //TODO Should be removed last message despite the thrown error?
-        _messageService.RemoveLastMessage();
-        
-        return await Task.FromResult(Ok($"I'm a teapot \n{decryptedMsg}"));
+            //TODO Need to check it - situation when decryptedMsg not successfully finished - beloved method will be executed??
+            //TODO Should be removed last message despite the thrown error?
+            _messageService.RemoveLastMessage();
+
+            return $"I'm a teapot \n{decryptedMsg.Result}";
+        }
+        catch (Exception e)
+        {
+            return $"Error while returning decrypted message: {e}";
+        }
     }
     
     [SwaggerOperation(Summary = "Get a specified message by Id.", 
@@ -46,7 +54,7 @@ public class MessagesController : ControllerBase
     [HttpGet("get-msg/{id}")]
     public IActionResult GetMessageById(int id)
     {
-        var msg = _messageService.GetMessageById(id);
+        var msg = _messageService.GetMessageByIdAsync(id);
         return Ok(msg);
     }
 

@@ -1,10 +1,8 @@
 ﻿using System.Collections;
-using System.Configuration;
 using System.Data.SqlClient;
 using System.Net.Http.Json;
 using AppA.Models;
 using Newtonsoft.Json;
-using static AppA.Config.ConstParameters;
 using ConfigurationManager = System.Configuration.ConfigurationManager;
 
 namespace AppA.Helpers;
@@ -17,7 +15,8 @@ public class SendDataHelper
         {
             var client = new HttpClient();
             var data = new {Key = key, SymmetricAlgorithm = IV};
-            var response = client.PostAsJsonAsync(HTTP_ENDPOINT, data).Result;
+            var httpEndpoint = ConfigurationManager.AppSettings["httpEndpoint"];
+            var response = client.PostAsJsonAsync(httpEndpoint, data).Result;
             var responseContent = await response.Content.ReadAsStringAsync();
             var result = await DeserializeJsonAsync(responseContent);
 
@@ -36,16 +35,16 @@ public class SendDataHelper
         try
         {
             var connectionString = ConfigurationManager.ConnectionStrings["MessagesDb"].ConnectionString;
-            var con = new SqlConnection(connectionString);
-            await con.OpenAsync();
-
-            await using (var cmd = new SqlCommand($"INSERT INTO Messages (EncodedMsg) VALUES (@EncodedMsg)", con))
+            
+            await using (var con = new SqlConnection(connectionString))
             {
+                await con.OpenAsync();
+                
+                var cmd = new SqlCommand($"INSERT INTO Messages (EncodedMsg) VALUES (@EncodedMsg)", con);
+                
                 cmd.Parameters.AddWithValue("@EncodedMsg", message);
                 await cmd.ExecuteNonQueryAsync();
             }
-
-            con.Close();
         }
         catch (SqlException ex)
         {

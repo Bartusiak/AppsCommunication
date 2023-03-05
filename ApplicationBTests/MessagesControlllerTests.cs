@@ -26,8 +26,8 @@ public class Tests
         _messages = new Messages {MsgId = 1, EncodedMsg = _fakeEncodedMsg.ToArray()};
         _messagesList = new List<Messages> {_messages, _messages};
         
-        _msgRepository.GetLastMessage().Returns(_messages);
-        _msgRepository.GetMessageById(1).Returns(_messages);
+        _msgRepository.GetLastMessageAsync().Returns(_messages);
+        _msgRepository.GetMessageByIdAsync(1).Returns(_messages);
         _msgRepository.GetMessages().Returns(_messagesList);
     }
 
@@ -49,10 +49,10 @@ public class Tests
         
         //Act
         var result = controller.Decrypt(_messageToDecrypt);
-        var objResult = result.Result as ObjectResult;
+        //var objResult = result.Result as ObjectResult;
 
         //Assert
-        Assert.AreEqual(expectedText, objResult.Value.ToString());
+        Assert.AreEqual(expectedText, result);
     }
     
     [TestCase("I'm a teapot \nDecrypted text", "rdZ49cRVtuasVcAIXGt8bQ==")]
@@ -75,7 +75,7 @@ public class Tests
         var result = controller.Decrypt(_messageToDecrypt);
 
         //Assert
-        Assert.AreEqual(TaskStatus.Faulted, result.Status);
+        Assert.AreNotEqual(expectedText, result);
     }
     
     [TestCase("I'm a teapot \nSo many books, so little time", "YIKetqm7ZfacTliqv9ZvCets+c1llTWKrc02ND2MZbA=")]
@@ -95,10 +95,10 @@ public class Tests
         
         //Act
         var result = controller.Decrypt(_messageToDecrypt);
-        var objResult = result.Result as ObjectResult;
+        //var objResult = result as ObjectResult;
 
         //Assert
-        Assert.AreNotEqual(expectedText, objResult.Value);
+        Assert.AreNotEqual(expectedText, result); //objResult.Value);
     }
 
     [Test]
@@ -110,10 +110,10 @@ public class Tests
         //Act
         var result = controller.GetMessageById(1);
         var objResult = result as OkObjectResult;
-        var message = objResult.Value as Messages;
+        var msgValue = objResult.Value as Task<Messages>;
 
         //Assert
-        Assert.AreEqual(_fakeEncodedMsg, message.EncodedMsg);
+        Assert.AreEqual(_fakeEncodedMsg, msgValue.Result.EncodedMsg);
     }
     
     [Test]
@@ -121,15 +121,16 @@ public class Tests
     {
         //Arrange
         _messages = new Messages();
-        _msgRepository.GetMessageById(6).Returns(_messages);
+        _msgRepository.GetMessageByIdAsync(6).Returns(_messages);
         var controller = new MessagesController(_msgRepository);
 
         //Act
         var result = controller.GetMessageById(2);
         var objResult = result as OkObjectResult;
-
+        var msgValue = objResult.Value as Task<Messages>;
+        
         //Assert
-        Assert.AreEqual(null, objResult.Value);
+        Assert.AreEqual(null, msgValue.Result);
     }
 
     [Test]

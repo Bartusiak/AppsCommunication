@@ -3,6 +3,7 @@ using ApplicationB.Db.Models;
 using ApplicationB.Db.Repository;
 using ApplicationB.Db.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.OpenApi.Models;
 
@@ -27,7 +28,7 @@ public static class Program
             });
             x.EnableAnnotations();
         });
-        builder.Services.AddScoped<IMessagesRepository ,MessageService>();
+        builder.Services.AddScoped<IDesignTimeDbContextFactory<MessagesDbContext>, MessageDbContextFactory>();
         var app = builder.Build();
         
         using (var scope = app.Services.CreateScope())

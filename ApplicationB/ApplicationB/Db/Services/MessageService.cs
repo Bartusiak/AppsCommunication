@@ -15,9 +15,9 @@ public class MessageService : IMessagesRepository
 
     public IEnumerable<Messages> GetMessages() => _context.Message.ToList();
 
-    public Messages GetMessageById(int msgId) => _context.Message.Find(msgId)!;
+    public Task<Messages> GetMessageByIdAsync(int msgId) => Task.FromResult(_context.Message.Find(msgId)!);
     
-    public Messages GetLastMessage() => _context.Message.OrderByDescending(m => m.MsgId).FirstOrDefault()!;
+    public Task<Messages> GetLastMessageAsync() => Task.FromResult(_context.Message.OrderByDescending(m => m.MsgId).FirstOrDefault()!);
 
     public void RemoveLastMessage()
     {

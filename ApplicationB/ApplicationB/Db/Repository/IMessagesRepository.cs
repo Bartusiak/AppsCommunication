@@ -5,8 +5,8 @@ namespace ApplicationB.Db.Repository;
 public interface IMessagesRepository
 {
     IEnumerable<Messages> GetMessages();
-    public Messages GetMessageById(int id);
-    public Messages GetLastMessage();
+    public Task<Messages> GetMessageByIdAsync(int id);
+    public Task<Messages> GetLastMessageAsync();
     public void ClearDataTable();
     public void RemoveLastMessage();
 }
